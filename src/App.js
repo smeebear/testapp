@@ -1,23 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const url = 'http://localhost:9000/api/placeholder'
+  const [text, setText] = useState('');
+  
+
+  useEffect(() => {
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data.outputText);
+      setText(data.outputText);
+    })
+  });
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {text}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
